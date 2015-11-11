@@ -18,4 +18,5 @@ public class Beer {
 
     String name;
     String type;
+    Integer calories; //it will create a column for each field entered into this class
 }
