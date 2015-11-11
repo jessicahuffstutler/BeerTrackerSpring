@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<a href="/logout">Logout</a>
+
+<br><br>
+
 <a href="/">All</a>
 <a href="/?type=Ale">Ales</a>
 <a href="/?type=Lager">Lagers</a>
@@ -13,6 +17,7 @@
 <a href="/?type=Stout">Stouts</a>
 <a href="/?type=Porter">Porters</a>
 <a href="/?type=Other">Other</a>
+<a href="/?showMine=true">My Beers</a>
 
 <br><br>
 
@@ -36,7 +41,7 @@
 </form>
 
 {{#beers}}
-{{name}} - {{type}} ({{calories}} Calories)<br>
+{{name}} - {{type}} ({{calories}} Calories) by {{#user}}{{name}}{{/user}}<br>
 {{/beers}}
 
 </body>

@@ -3,6 +3,7 @@ package com.theironyard;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by jessicahuffstutler on 11/10/15.
@@ -19,4 +20,9 @@ public class Beer {
     String name;
     String type;
     Integer calories; //it will create a column for each field entered into this class
+
+    //it wants to know if it's many to one, one to many or many to many
+    //there are multiple beers per user
+    @ManyToOne
+    User user;
 }
