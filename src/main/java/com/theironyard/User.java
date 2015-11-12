@@ -16,6 +16,7 @@ public class User {
     Integer id;
 
     String name;
+    String password;
 
     //storing the list of beers that a user created
     //"user" is the name of the field in the beer class (the @ManyToOne field)
