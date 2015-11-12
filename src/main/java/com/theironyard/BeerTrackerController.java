@@ -39,12 +39,12 @@ public class BeerTrackerController {
     public String home(
             Model model,
             String type,
-            Integer calories,
+            Integer calories, //we want to leave this one as Integer instead of int
             String search,
-            HttpServletRequest request,
+            HttpSession session,
             String showMine
     ) {
-        HttpSession session = request.getSession();
+        //HttpSession session = request.getSession(); //we can get rid of this and pass the session in the argument instead of HttpServletRequest request.
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
@@ -66,9 +66,13 @@ public class BeerTrackerController {
     }
 
     @RequestMapping("/add-beer")
-    public String addBeer(String beername, String beertype, Integer beercalories, HttpServletRequest request) { //String beername, String beertype from HTML
-        HttpSession session = request.getSession();
+    public String addBeer(String beername, String beertype, int beercalories, HttpSession session) throws Exception { //String beername, String beertype from HTML
+        //HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("Not logged in.");
+        }
+
         User user = users.findOneByName(username);
 
         Beer beer = new Beer();
@@ -81,7 +85,10 @@ public class BeerTrackerController {
     }
 
     @RequestMapping("/edit-beer")
-    public String editBeer(Integer id, String name, String type) {
+    public String editBeer(Integer id, String name, String type, HttpSession session) throws Exception {
+        if (session.getAttribute("username") == null) {
+            throw new Exception("Not logged in.");
+        }
         Beer beer = beers.findOne(id); //pulls out beer from database
         beer.name = name;
         beer.type = type;
@@ -90,8 +97,8 @@ public class BeerTrackerController {
     }
 
     @RequestMapping("/login")
-    public String login(String username, String password, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
+    public String login(String username, String password, HttpSession session) throws Exception {
+        //HttpSession session = request.getSession();
         session.setAttribute("username", username);
 
         User user = users.findOneByName(username);
@@ -108,8 +115,8 @@ public class BeerTrackerController {
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String logout(HttpSession session) {
+        //HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/";
     }
