@@ -1,4 +1,4 @@
-package com.theironyard;
+package com.theironyard.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +17,12 @@ public class Beer {
     @GeneratedValue
     Integer id; //it wants the class not the primitive type
 
-    String name;
-    String type;
-    Integer calories; //it will create a column for each field entered into this class
+    public String name;
+    public String type;
+    public Integer calories; //it will create a column for each field entered into this class
 
     //it wants to know if it's many to one, one to many or many to many
     //there are multiple beers per user
     @ManyToOne
-    User user;
+    public User user;
 }

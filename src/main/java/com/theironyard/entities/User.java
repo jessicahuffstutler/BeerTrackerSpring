@@ -1,4 +1,6 @@
-package com.theironyard;
+package com.theironyard.entities;
+
+import com.theironyard.entities.Beer;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,11 +17,11 @@ public class User {
     @GeneratedValue
     Integer id;
 
-    String name;
-    String password;
+    public String name;
+    public String password;
 
     //storing the list of beers that a user created
     //"user" is the name of the field in the beer class (the @ManyToOne field)
     @OneToMany(mappedBy = "user")
-    List<Beer> beers;
+    public List<Beer> beers;
 }

@@ -1,12 +1,16 @@
-package com.theironyard;
+package com.theironyard.controllers;
 
+import com.theironyard.entities.Beer;
+import com.theironyard.entities.User;
+import com.theironyard.services.BeerRepository;
+import com.theironyard.services.UserRepository;
+import com.theironyard.util.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -18,7 +22,7 @@ import java.security.spec.InvalidKeySpecException;
 public class BeerTrackerController {
     //BeerRepository object
     @Autowired //spring will wire it up for us, create the object and make it available to use
-    BeerRepository beers;
+            BeerRepository beers;
 
     @Autowired
     UserRepository users;
@@ -78,7 +82,7 @@ public class BeerTrackerController {
         Beer beer = new Beer();
         beer.name = beername;
         beer.type = beertype;
-        beer.calories= beercalories;
+        beer.calories = beercalories;
         beer.user = user;
         beers.save(beer); //that's all the code we need to insert it into the database.
         return "redirect:/";
@@ -108,7 +112,7 @@ public class BeerTrackerController {
             user.password = PasswordHash.createHash(password);
             users.save(user);
         } else if (!PasswordHash.validatePassword(password, user.password)) {
-            //throw and error in spring is just throwing an exception instead of spark 403
+            //throw an error in spring is just throwing an exception instead of spark 403
             throw new Exception("Wrong password");
         }
         return "redirect:/";
